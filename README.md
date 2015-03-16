@@ -28,11 +28,8 @@ Blob {type: "image/jpeg", size: 38898, name: "test.jpg", slice: function}
   __proto__: Blob
 ```
 
-A small bug with Safari on iOS 8, FileReader doesn't have permission by default to access the file input data, fix by putting the following in `<head>`:
-
-```
-<meta name="apple-mobile-web-app-capable" content="yes">
-```
+A bug with Safari on iOS 8, FileReader doesn't have permission to access the file input data it seems since v8.
+There is no way around it AFAIK, so this package will not work on iOS8 Safari, Chrome works fine however on the device.
 
 ### Usage Example
 
