@@ -14,9 +14,13 @@ Resizer = {
         type: file.type
     };
 
-    if (!file.type.match(/image.*/) && !helper.data.width) {
+    if (!file.type.match(/image.*/) && !options.width) {
       throw new Meteor.error("not-image", "Cannot resize a non-image file");
     } else {
+      reader.onerror = function(e) {
+        callback(e.target.error);
+      };
+      
       reader.onload = function(e) {
 
           //crop
@@ -100,7 +104,7 @@ Resizer = {
 
                   fileData.size = ua.length;
 
-                  callback(_.extend(fileData.data, {name: fileData.name}));
+                  callback(null, _.extend(fileData.data, {name: fileData.name}));
               }
           }
       };
