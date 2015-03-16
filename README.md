@@ -8,6 +8,16 @@ This package solves that issue by allowing you to set a width, height and wether
 
 To install the package simply type `meteor add thinksoftware:image-resize-client`
 
+This package allows you to set the size you want to upload to the service, saving space and bandwidth from the client. The package gives you the following options:
+
+```
+var options = {
+  width: 300,
+  height: 300,
+  cropSquare: true
+};
+```
+
 The package returns a Blob file extended with the file name, size and type intact as you can see in a copy of a console log of a resized image from a file upload input:
 
 ```
@@ -20,7 +30,7 @@ Blob {type: "image/jpeg", size: 38898, name: "test.jpg", slice: function}
 
 ### Usage Example
 
-An example of this package with `eggee:slingshot` package for direct S3 uploads:
+An example of this package with `edgee:slingshot` package for direct S3 uploads:
 
 #### Server Side
 
