@@ -28,6 +28,12 @@ Blob {type: "image/jpeg", size: 38898, name: "test.jpg", slice: function}
   __proto__: Blob
 ```
 
+A small bug with Safari on iOS 8, FileReader doesn't have permission by default to access the file input data, fix by putting the following in `<head>`:
+
+```
+<meta name="apple-mobile-web-app-capable" content="yes">
+```
+
 ### Usage Example
 
 An example of this package with `edgee:slingshot` package for direct S3 uploads:
@@ -79,7 +85,7 @@ Template.hello.events({
   'change input[type=file]': function(e, t) {
     var files = e.currentTarget.files;
 
-    Resizer.resize(files[0], {width: 300, height: 300, cropSquare: true}, function(file) {
+    Resizer.resize(files[0], {width: 300, height: 300, cropSquare: true}, function(err, file) {
 
       var uploader = new Slingshot.Upload("myFileUploads");
 
