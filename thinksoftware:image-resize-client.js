@@ -15,12 +15,12 @@ Resizer = {
     };
 
     if (!file.type.match(/image.*/) && !options.width) {
-      throw new Meteor.error("not-image", "Cannot resize a non-image file");
+      callback("error: Cannot resize a non-image file");
     } else {
       reader.onerror = function(e) {
-        callback(e.target.error);
+        callback("error: [" + e.target.error.code + "] iPhone iOS8 Permissions Error.");
       };
-      
+
       reader.onload = function(e) {
 
           //crop

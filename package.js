@@ -1,6 +1,6 @@
 Package.describe({
   name: 'thinksoftware:image-resize-client',
-  version: '0.0.3',
+  version: '0.0.4',
   // Brief, one-line summary of the package.
   summary: 'Client-side image resize and crop for file object',
   // URL to the Git repository containing the source code for this package.
