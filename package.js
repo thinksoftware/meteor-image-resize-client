@@ -1,6 +1,6 @@
 Package.describe({
   name: 'thinksoftware:image-resize-client',
-  version: '0.0.5',
+  version: '0.0.6',
   // Brief, one-line summary of the package.
   summary: 'Client-side image resize and crop for file object',
   // URL to the Git repository containing the source code for this package.
@@ -13,6 +13,9 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
   api.use(["underscore", "jquery"]);
+
+  api.use('blueimp:javascript-load-image@1.13.1', 'client');
+
   api.addFiles('thinksoftware:image-resize-client.js', 'client');
   if (api.export) { api.export('Resizer', 'client'); }
 });
