@@ -21,9 +21,12 @@ Resizer = {
 
     // Get image metadata.
     LoadImage.parseMetaData(file, function(data) {
-      var orientation = data.exif.get('Orientation');
-      if (orientation) {
-        options.orientation = orientation;
+      var orientation = 1;
+      if (data.exif) {
+        orientation = data.exif.get('Orientation');
+        if (orientation) {
+          options.orientation = orientation;
+        }
       }
 
       // Resize image with orientation metadata.
