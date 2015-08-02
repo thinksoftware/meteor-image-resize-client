@@ -47,7 +47,7 @@ Resizer = {
 
         fileData.size = ua.length;
 
-        callback(null, _.extend(fileData.data, {name: fileData.name}, data.exif.getAll()));
+        callback(null, _.extend(fileData.data, {name: fileData.name}, data.exif ? data.exif.getAll() : {}));
 
       }, options);
 
