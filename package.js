@@ -16,12 +16,12 @@ Package.onUse(function(api) {
 
   api.use('blueimp:javascript-load-image@1.13.1', 'client');
 
-  api.addFiles('thinksoftware:image-resize-client.js', 'client');
+  api.addFiles('image-resize-client.js', 'client');
   if (api.export) { api.export('Resizer', 'client'); }
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('thinksoftware:image-resize-client');
-  api.addFiles('thinksoftware:image-resize-client-tests.js');
+  api.use('image-resize-client');
+  api.addFiles('image-resize-client-tests.js');
 });
