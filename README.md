@@ -6,7 +6,9 @@ image resizing and cropping square on the client side before uploading the large
 
 This package solves that issue by allowing you to set a width, height and wether the image is cropped to a square.
 
-To install the package simply type `meteor add thinksoftware:image-resize-client`
+## Getting started
+
+`meteor add timbrandin:image-resize-client`
 
 This package allows you to set the size you want to upload to the service, saving space and bandwidth from the client. The package gives you the following options:
 
