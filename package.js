@@ -1,10 +1,10 @@
 Package.describe({
-  name: 'thinksoftware:image-resize-client',
-  version: '0.0.6',
+  name: 'timbrandin:image-resize-client',
+  version: '1.0.0',
   // Brief, one-line summary of the package.
   summary: 'Client-side image resize and crop for file object',
   // URL to the Git repository containing the source code for this package.
-  git: 'https://github.com/thinksoftware/meteor-image-resize-client',
+  git: 'https://github.com/timbrandin/meteor-image-resize-client',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
