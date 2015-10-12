@@ -1,3 +1,5 @@
+[![Meteor Icon](http://icon.meteor.com/package/thinksoftware:image-resize-client)](https://atmospherejs.com/thinksoftware/image-resize-client)
+
 Client Side Image Resize
 ------------------------
 
