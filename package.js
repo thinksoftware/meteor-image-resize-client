@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
   api.use(["underscore", "jquery", 'check']);
 
-  api.use('marvin:javascript-load-image@2.1.0', 'client');
+  api.use('marvin:javascript-load-image@2.1.1', 'client');
 
   api.addFiles('image-resize-client.js', 'client');
   if (api.export) { api.export('Resizer', 'client'); }
