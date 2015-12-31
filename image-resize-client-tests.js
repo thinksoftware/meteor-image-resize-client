@@ -20,7 +20,7 @@ Tinytest.addAsync('Image - Resize', function(test, done) {
   }
 
   function onOriginalImgLoaded() {
-    Resizer.resize(originalBlob, {width: 300, height: 100, cropSquare: false}, function(err, file) {
+    Resizer.resize(originalBlob, {maxWidth: 300, maxHeight: 100, crop: true}, function(err, file) {
       resizedImg = document.createElement('img');
       resizedImg.src = window.URL.createObjectURL(file);
       resizedImg.onload = onResizedImgLoaded
@@ -31,7 +31,7 @@ Tinytest.addAsync('Image - Resize', function(test, done) {
 
   function onResizedImgLoaded() {
     test.isTrue(originalImg.height > resizedImg.height)
-    test.equal(resizedImg.height, 300)
+    test.equal(resizedImg.height, 100)
     test.equal(resizedImg.width, 300)
 
     done()

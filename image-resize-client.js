@@ -2,16 +2,14 @@ Resizer = {
   resize: function(file, options, callback) {
 
     check(options, Match.ObjectIncluding({
-      width: Number,
-      height: Number,
-      cropSquare: Boolean
+      maxWidth: Number,
+      maxHeight: Number,
+      crop: Match.Optional(Boolean),
+      canvas: Match.Optional(Boolean)
     }));
 
-    // Convert to LoadImage style options.
-    options.maxWidth = options.width;
-    options.maxHeight = options.width;
-    options.crop = options.cropSquare;
-    options.canvas = true;
+    if(options.canvas === undefined)
+      options.canvas = true;
 
     var fileData = {
       name: file.name,
