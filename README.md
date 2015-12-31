@@ -18,7 +18,8 @@ This package allows you to set the size you want to upload to the service, savin
 var options = {
   width: 300,
   height: 300,
-  cropSquare: true
+  cropSquare: true,
+  quality: 0.3 // optional
 };
 ```
 

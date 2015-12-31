@@ -20,7 +20,7 @@ Resizer = {
     };
 
     // Get image metadata.
-    LoadImage.parseMetaData(file, function(data) {
+    loadImage.parseMetaData(file, function(data) {
       var orientation = 1;
       if (data.exif) {
         orientation = data.exif.get('Orientation');
@@ -30,7 +30,7 @@ Resizer = {
       }
 
       // Resize image with orientation metadata.
-      LoadImage(file, function(canvas) {
+      loadImage(file, function(canvas) {
         var resize_dataUrl = canvas.toDataURL(fileData.type);
 
         var binaryImg = atob(resize_dataUrl.slice(resize_dataUrl.indexOf('base64') + 7, resize_dataUrl.length));
