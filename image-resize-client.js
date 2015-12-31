@@ -43,7 +43,7 @@ Resizer = {
 
       // Resize image with orientation metadata.
       loadImage(file, function(canvas) {
-        var resize_dataUrl = canvas.toDataURL("image/jpeg",0.7);
+        var resize_dataUrl = canvas.toDataURL(file.type);
 
         var binaryImg = atob(resize_dataUrl.slice(resize_dataUrl.indexOf('base64') + 7, resize_dataUrl.length));
         var length = binaryImg.length;
