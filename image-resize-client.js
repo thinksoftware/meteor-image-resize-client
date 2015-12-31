@@ -17,14 +17,10 @@ Resizer = {
       aspectRatio: Match.Optional(Number),
       crop: Match.Optional(Boolean),
       orientation: Match.Optional(Boolean),
-      // canvas: Match.Optional(Boolean),
+      canvas: Match.Optional(Boolean),
       crossOrigin: Match.Optional(Boolean),
       noRevoke: Match.Optional(Boolean)
     }));
-
-    // Canvas must be true
-    // if(options.canvas === undefined)
-    options.canvas = true;
 
     var fileData = {
       name: file.name,
@@ -43,22 +39,13 @@ Resizer = {
 
       // Resize image with orientation metadata.
       loadImage(file, function(canvas) {
-        var resize_dataUrl = canvas.toDataURL(file.type);
 
-        var binaryImg = atob(resize_dataUrl.slice(resize_dataUrl.indexOf('base64') + 7, resize_dataUrl.length));
-        var length = binaryImg.length;
-        var ab = new ArrayBuffer(length);
-        var ua = new Uint8Array(ab);
-        for (var i = 0; i < length; i++) {
-            ua[i] = binaryImg.charCodeAt(i);
-        }
+        canvas.toBlob(function(blob) {
+          fileData.data = blob
+          fileData.data.type = file.type;
 
-        fileData.data = new Blob([ua], {type: file.type, name: file.name});
-        fileData.data.type = file.type;
-        fileData.size = ua.length;
-
-        callback(null, _.extend(fileData.data, {name: fileData.name}, data.exif ? data.exif.getAll() : {}));
-
+          callback(null, _.extend(fileData.data, {name: fileData.name}, data.exif ? data.exif.getAll() : {}));
+        })
       }, options);
 
     },
