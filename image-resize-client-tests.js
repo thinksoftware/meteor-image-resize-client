@@ -12,6 +12,7 @@ Tinytest.addAsync('Image - Resize', function(test, done) {
       originalBlob.name = 'blob.jpg'
 
       originalImg = document.createElement('img');
+      originalImg.style = 'display: none;'
       originalImg.src = window.URL.createObjectURL(originalBlob);
       originalImg.onload = onOriginalImgLoaded
 
@@ -22,6 +23,7 @@ Tinytest.addAsync('Image - Resize', function(test, done) {
   function onOriginalImgLoaded() {
     Resizer.resize(originalBlob, {maxWidth: 300, maxHeight: 100, crop: true}, function(err, file) {
       resizedImg = document.createElement('img');
+      resizedImg.style = 'display: none;'
       resizedImg.src = window.URL.createObjectURL(file);
       resizedImg.onload = onResizedImgLoaded
 
@@ -30,9 +32,9 @@ Tinytest.addAsync('Image - Resize', function(test, done) {
   }
 
   function onResizedImgLoaded() {
-    test.isTrue(originalImg.height > resizedImg.height)
-    test.equal(resizedImg.height, 100)
-    test.equal(resizedImg.width, 300)
+    test.isTrue(originalImg.height > resizedImg.height, "Original height not greater than resized")
+    test.equal(resizedImg.height, 100, "Resized height incorrect")
+    test.equal(resizedImg.width, 300, "Resized height incorrect")
 
     done()
   }

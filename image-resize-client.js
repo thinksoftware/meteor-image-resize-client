@@ -2,18 +2,32 @@ Resizer = {
   resize: function(file, options, callback) {
 
     check(options, Match.ObjectIncluding({
-      maxWidth: Number,
-      maxHeight: Number,
+      maxWidth: Match.Optional(Number),
+      maxHeight: Match.Optional(Number),
+      minWidth: Match.Optional(Number),
+      minHeight: Match.Optional(Number),
+      sourceWidth: Match.Optional(Number),
+      sourceHeight: Match.Optional(Number),
+      top: Match.Optional(Number),
+      right: Match.Optional(Number),
+      bottom: Match.Optional(Number),
+      left: Match.Optional(Number),
+      contain: Match.Optional(Boolean),
+      cover: Match.Optional(Boolean),
+      aspectRatio: Match.Optional(Number),
       crop: Match.Optional(Boolean),
-      canvas: Match.Optional(Boolean)
+      orientation: Match.Optional(Boolean),
+      // canvas: Match.Optional(Boolean),
+      crossOrigin: Match.Optional(Boolean),
+      noRevoke: Match.Optional(Boolean)
     }));
 
-    if(options.canvas === undefined)
-      options.canvas = true;
+    // Canvas must be true
+    // if(options.canvas === undefined)
+    options.canvas = true;
 
     var fileData = {
       name: file.name,
-      size: file.size,
       type: file.type
     };
 
@@ -29,7 +43,7 @@ Resizer = {
 
       // Resize image with orientation metadata.
       loadImage(file, function(canvas) {
-        var resize_dataUrl = canvas.toDataURL(fileData.type);
+        var resize_dataUrl = canvas.toDataURL("image/jpeg",0.7);
 
         var binaryImg = atob(resize_dataUrl.slice(resize_dataUrl.indexOf('base64') + 7, resize_dataUrl.length));
         var length = binaryImg.length;
@@ -40,15 +54,17 @@ Resizer = {
         }
 
         fileData.data = new Blob([ua], {type: file.type, name: file.name});
-
         fileData.data.type = file.type;
-
         fileData.size = ua.length;
 
         callback(null, _.extend(fileData.data, {name: fileData.name}, data.exif ? data.exif.getAll() : {}));
 
       }, options);
 
-    }, { maxMetaDataSize: 262144, disableImageHead: false });
+    },
+    {
+      maxMetaDataSize: 262144,
+      disableImageHead: false
+    });
   }
 }
