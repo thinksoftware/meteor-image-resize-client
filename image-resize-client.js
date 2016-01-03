@@ -2,25 +2,33 @@ Resizer = {
   resize: function(file, options, callback) {
 
     check(options, Match.ObjectIncluding({
-      width: Number,
-      height: Number,
-      cropSquare: Boolean
+      maxWidth: Match.Optional(Number),
+      maxHeight: Match.Optional(Number),
+      minWidth: Match.Optional(Number),
+      minHeight: Match.Optional(Number),
+      sourceWidth: Match.Optional(Number),
+      sourceHeight: Match.Optional(Number),
+      top: Match.Optional(Number),
+      right: Match.Optional(Number),
+      bottom: Match.Optional(Number),
+      left: Match.Optional(Number),
+      contain: Match.Optional(Boolean),
+      cover: Match.Optional(Boolean),
+      aspectRatio: Match.Optional(Number),
+      crop: Match.Optional(Boolean),
+      orientation: Match.Optional(Boolean),
+      canvas: Match.Optional(Boolean),
+      crossOrigin: Match.Optional(Boolean),
+      noRevoke: Match.Optional(Boolean)
     }));
-
-    // Convert to LoadImage style options.
-    options.maxWidth = options.width;
-    options.maxHeight = options.width;
-    options.crop = options.cropSquare;
-    options.canvas = true;
 
     var fileData = {
       name: file.name,
-      size: file.size,
       type: file.type
     };
 
     // Get image metadata.
-    LoadImage.parseMetaData(file, function(data) {
+    loadImage.parseMetaData(file, function(data) {
       var orientation = 1;
       if (data.exif) {
         orientation = data.exif.get('Orientation');
@@ -30,27 +38,20 @@ Resizer = {
       }
 
       // Resize image with orientation metadata.
-      LoadImage(file, function(canvas) {
-        var resize_dataUrl = canvas.toDataURL(fileData.type);
+      loadImage(file, function(canvas) {
 
-        var binaryImg = atob(resize_dataUrl.slice(resize_dataUrl.indexOf('base64') + 7, resize_dataUrl.length));
-        var length = binaryImg.length;
-        var ab = new ArrayBuffer(length);
-        var ua = new Uint8Array(ab);
-        for (var i = 0; i < length; i++) {
-            ua[i] = binaryImg.charCodeAt(i);
-        }
+        canvas.toBlob(function(blob) {
+          fileData.data = blob
+          fileData.data.type = file.type;
 
-        fileData.data = new Blob([ua], {type: file.type, name: file.name});
-
-        fileData.data.type = file.type;
-
-        fileData.size = ua.length;
-
-        callback(null, _.extend(fileData.data, {name: fileData.name}, data.exif ? data.exif.getAll() : {}));
-
+          callback(null, _.extend(fileData.data, {name: fileData.name}, data.exif ? data.exif.getAll() : {}));
+        })
       }, options);
 
-    }, { maxMetaDataSize: 262144, disableImageHead: false });
+    },
+    {
+      maxMetaDataSize: 262144,
+      disableImageHead: false
+    });
   }
 }

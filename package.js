@@ -12,10 +12,26 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.2');
-  api.use(["underscore", "jquery"]);
+  api.use(["underscore", "jquery", 'check']);
 
-  api.use('blueimp:javascript-load-image@1.13.1', 'client');
+  api.use('marvin:javascript-load-image@2.1.1', 'client');
 
   api.addFiles('image-resize-client.js', 'client');
   if (api.export) { api.export('Resizer', 'client'); }
 });
+
+Package.onTest(function(api) {
+  api.use([
+    'ecmascript',
+    'tinytest',
+    // 'underscore'
+  ]);
+
+  api.use([
+    'thinksoftware:image-resize-client',
+  ]);
+
+  api.addFiles([
+    'image-resize-client-tests.js',
+  ], 'client')
+})
