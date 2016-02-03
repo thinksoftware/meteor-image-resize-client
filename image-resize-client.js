@@ -9,7 +9,7 @@ Resizer = {
 
     // Convert to LoadImage style options.
     options.maxWidth = options.width;
-    options.maxHeight = options.width;
+    options.maxHeight = options.height;
     options.crop = options.cropSquare;
     options.canvas = true;
 
